@@ -1,8 +1,10 @@
 #!/bin/sh
+
 echo Content-type: text/html
 echo
 
-host_address=`host $REMOTE_ADDR 2>&1|grep Name|sed 's/.*: *//'`
+host_name=`host "$HTTP_X_FORWARDED_FOR" |sed 's/.*\s//'|sed 's/.$//'`
+identifies=`echo "$HTTP_USER_AGENT"|sed 's/.*=\s//'`
 
 cat <<eof
 <!DOCTYPE html>
@@ -11,11 +13,11 @@ cat <<eof
 <title>Webserver IP, Host and Software</title>
 </head>
 <body>
-This web server is running on at IP address: <b>$SERVER_ADDR</b>
+Your browser is running at IP address: <b>$HTTP_X_FORWARDED_FOR</b>
 <p>
-This web server is running on hostname: <b>$SERVER_NAME</b>
+Your browser is running on hostname: <b>$host_name</b>
 <p>
-This web server is <b>$SERVER_SOFTWARE</b>
+Your browser identifies as: <b>$identifies</b>
 </body>
 </html>
 eof
