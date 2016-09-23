@@ -25,13 +25,13 @@ if ($username && $password) {
 	print "Enter username\n";
 	print start_form, "\n";
     print "Username:\n", textfield('username'), "\n";
-	print "Password:\n",textfield(password => "$password"), "\n";
+	print hidden(-name => "password", -default => "$password"), "\n";
     print submit(value => Login), "\n";
     print end_form, "\n";
 }elsif($username && !$password){
 	print "Enter Password\n";
 	print start_form, "\n";
-    print "Username:\n", textfield(username => "$username"),"\n";
+	print hidden(-name => "username", -default => "$username"), "\n";
     print "Password:\n", textfield('password'),"\n";
     print submit(value => Login), "\n";
     print end_form, "\n";
