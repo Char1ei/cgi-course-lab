@@ -16,8 +16,9 @@ cat <<eof
 Your browser is running at IP address: <b>$REMOTE_ADDR</b>
 <p>
 Your browser is running on hostname: <b>$host_name</b>
-<p>
+</p><p>
 Your browser identifies as: <b>$identifies</b>
+</p>
 </body>
 </html>
 eof
