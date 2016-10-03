@@ -10,7 +10,10 @@ if($run_env =~ /GATEWAY_INTERFACE=CGI/){
 	print header, start_html('Login');
 	warningsToBrowser(1);
 
-	if (defined param('username') && defined param('password')) {
+	$username = param('username');
+	$password = param('password');
+
+	if (defined $username && defined $password) {
 		if (!open F, "<accounts/$username/password"){
 			print "unknown username!\n";
 		} else {
@@ -22,14 +25,14 @@ if($run_env =~ /GATEWAY_INTERFACE=CGI/){
 				print "incorrect_password!\n";
 			}
 		}
-	}elsif(defined param('password')){
+	}elsif(defined $password){
 		print "Enter username\n";
 		print start_form, "\n";
 	    print "Username:\n", textfield('username'), "\n";
 		print hidden(-name => "password", -default => "$password"), "\n";
 	    print submit(value => Login), "\n";
 	    print end_form, "\n";
-	}elsif(defined param('username')){
+	}elsif(defined $username){
 		print "Enter Password\n";
 		print start_form, "\n";
 		print hidden(-name => "username", -default => "$username"), "\n";
