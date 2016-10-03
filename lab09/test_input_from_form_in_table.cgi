@@ -1,7 +1,4 @@
 #!/usr/bin/perl -w
-# Simple CGI script written by andrewt@cse.unsw.edu.au
-# Output some simple HTML and a table of the input parameters
-# the web server has passed on to the CGI script.
 
 print "Content-type: text/html
 
@@ -30,5 +27,3 @@ print "
 </body>
 </html>
 ";
-
-
