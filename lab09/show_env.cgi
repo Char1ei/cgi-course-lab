@@ -13,7 +13,7 @@ cat <<eof
 <body>
 <h2>Environment Variables</h2>
 <pre>
-echo $env
+echo $env_var
 </pre>
 </body>
 </html>
