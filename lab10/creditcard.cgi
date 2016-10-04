@@ -9,8 +9,54 @@ print header, start_html("Credit Card Validation"), "\n";
 warningsToBrowser(1);
 $credit_card = param("credit_card");
 if (defined $credit_card) {
-    print validate($credit_card);
+	if (defined param('Validate')){
+		$result = validate($credit_card); 
+		if ( $result =~ /\bvalid\b/){
+			print h2(validate($credit_card)),"\n";
+			param('credit_card',''),"\n";
+			print start_form,"\n";
+			print "Enter ANOTHER card number:\n",textfield(-name =>'credit_card'),"\n";
+			print submit('Validate'), "\n";
+			print submit('Reset'), "\n";
+			print submit('Close'), "\n";
+			print end_form, "\n";
+		}else{
+			#invalid
+			print h2(validate($credit_card)),"\n";
+			param('credit_card',''),"\n";
+			print start_form,"\n";
+			print "Try again, card number:\n",textfield('credit_card'),"\n";
+			print submit('Validate'), "\n";
+			print submit('Reset'), "\n";
+			print submit('Close'), "\n";
+			print end_form, "\n";
+		}
+	}elsif(defined param('Reset')){
+		param('credit_card',''),"\n";
+		print h2('Credit Card Validation'); 
+		print "This page checks whether a potential credit card number satisfies the Luhn Formula.\n";
+		print start_form,"\n";
+		print "Enter credit card number:\n",textfield('credit_card'),"\n";
+		print submit('Validate'), "\n";
+		print submit('Reset'), "\n";
+		print submit('Close'), "\n";
+		print end_form, "\n";
+	}elsif(defined param('Close')){
+		print h2("Goodbye, have a good day!\n");
+	}else{
+		print "3\n";		
+	}
+}else{
+	print h2('Credit Card Validation'),"\n"; 
+	print "This page checks whether a potential credit card number satisfies the Luhn Formula.\n";
+	print start_form,"\n";
+	print "Enter credit card number:\n",textfield('credit_card'),"\n";
+	print submit('Validate'), "\n";
+	print submit('Reset'), "\n";
+	print submit('Close'), "\n";
+	print end_form, "\n";
 }
+
 print end_html;
 exit 0;
 
@@ -35,11 +81,11 @@ sub validate{
 	my $no = $credit_no;
 	$no =~ s/\D//g;
 	if(length $no != 16){
-		return "$credit_no is invalid - does not contain exactly 16 digits\n";
+		return "$no is invalid - does not contain exactly 16 digits\n";
 	}elsif(luhn_checksum($no) % 10 == 0){
-		return "$credit_no is valid\n";
+		return "$no is valid\n";
 	}else{
-		return "$credit_no is invalid\n";
+		return "$no is invalid\n";
 	}	
 }
 
