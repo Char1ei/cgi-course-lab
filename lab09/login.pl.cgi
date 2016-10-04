@@ -3,9 +3,10 @@
 use CGI qw/:all/;
 use CGI::Carp qw/fatalsToBrowser warningsToBrowser/;
 
-$run_env = `env`;
+#$run_env = `env`;
 
-if($run_env =~ /GATEWAY_INTERFACE=CGI/){
+#if($run_env =~ /GATEWAY_INTERFACE=CGI/){
+if (defined($ENV{'GATEWAY_INTERFACE'})) {
 	# running on CGI
 	print header, start_html('Login');
 	warningsToBrowser(1);
