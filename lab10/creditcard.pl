@@ -2,7 +2,7 @@
 # validate a credit card number by calculating its
 # checksum using Luhn's formula (https://en.wikipedia.org/wiki/Luhn_algorithm)
 
-sub luhn_checksun{
+sub luhn_checksum{
 	my ($no) = @_;
 	my $checksum = 0;
 	my @digits = reverse(split //, $no);
@@ -22,7 +22,7 @@ sub validate{
 	$no =~ s/\D//g;
 	if(length $no != 16){
 		return "invalid - does not contain exactly 16 digits\n";
-	}elsif(luhn_checksum($no) $ 10 == 0){
+	}elsif(luhn_checksum($no) % 10 == 0){
 		return "valid\n";
 	}else{
 		return "invalid\n";
@@ -30,5 +30,5 @@ sub validate{
 }
 
 foreach $credit_no (@ARGV){
-	print "$credit_no is validate($credit_no)\n";
+	print "$credit_no is ",validate($credit_no);
 }
