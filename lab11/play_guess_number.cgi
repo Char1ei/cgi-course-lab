@@ -43,27 +43,28 @@ if (defined $last_guess) {
     }
 if ($game_over){
     print "I win!\n";
-    print <<eof
-        <form method="post" action="">
-            <input type="submit" value="Play Again">
-        </form>
-    eof
+print <<eof;
+<form method="post" action="">
+<input type="submit" value="Play Again">
+</form>
+eof
 }else{
     $last_guess = get_middle($min,$max);
     print "My guess is:$last_guess\n";
-    print <<eof
-        <form method="post" action="">
-            <input type=hidden name="last_guess" value="$last_guess">
-            <input type=hidden name="min" value="$min">
-            <input type=hidden name="max" value="$max">
-            <input type="submit" name="higher" value="Higher?">
-            <input type="submit" name="correct" value="Correct?">
-            <input type="submit" name="lower" value="Lower?">
-        </form>
-    eof
+print <<eof;
+<form method="post" action="">
+<input type=hidden name="last_guess" value="$last_guess">
+<input type=hidden name="min" value="$min">
+<input type=hidden name="max" value="$max">
+<input type="submit" name="higher" value="Higher?">
+<input type="submit" name="correct" value="Correct?">
+<input type="submit" name="lower" value="Lower?">
+</form>
+eof
 }
 
 print <<eof;
 </body>
 </html>
 eof
+
