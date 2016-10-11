@@ -3,12 +3,14 @@
 use CGI qw/:all/;
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 
-# Simple CGI script written by andrewt@cse.unsw.edu.au
-# Outputs a form which will rerun the script
-# An input field of type hidden is used to pass an integer
-# to successive invocations
+$last_guess;
+$min = 1;
+$max = 100;
 
-$max_number_to_guess = 99;
+sub get_middle{
+    my ($min, $max) = @_;
+    return ($max + $min)//2;
+}
 
 print <<eof;
 Content-Type: text/html
@@ -16,59 +18,49 @@ Content-Type: text/html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Guess A Number</title>
-    <link rel="stylesheet" type="text/css" href="guess_number.css">
+    <title>A Guessing Game Player</title>
 </head>
 <body>
 eof
 
 warningsToBrowser(1);
 
-$number_to_guess = param('number_to_guess');
-$guess = param('guess');
+$last_guess = param('last_guess');
+$min = param('min');
+$max = param('max');
 
 $game_over = 0;
 
-if (defined $number_to_guess and defined $guess) {
-    $guess =~ s/\D//g;
-    $number_to_guess =~ s/\D//g;
-    if ($guess == $number_to_guess) {
-    	print "<div class='right_answer'\n>";
-        print "You guessed right, it was $number_to_guess.\n";
-        print "</div>\n";
+if (defined $last_guess) {
+    if(defined param("higher")){
+        $min = param('last_guess');
+        $max = param('max');
+    }elsif(defined param("lower")){
+        $min = param('min');
+        $max = param('last_guess');
+    }else{
         $game_over = 1;
-    } elsif ($guess < $number_to_guess) {
-    	print "<div class='wrong_answer'\n>";
-        print "Its higher than $guess.\n";
-        print "</div>\n";
-    } else {
-    	print "<div class='wrong_answer'\n>";
-        print "Its lower than $guess.\n";
-        print "</div>\n";
     }
-} else {
-    $number_to_guess = 1 + int(rand $max_number_to_guess);
-    print "I've  thought of number 0..$max_number_to_guess\n";
-}
-
-# no var are assignment so it will begin
-if ($game_over) {
-print <<eof;
-    <form method="POST" action="">
-        <div class="padding">
+if ($game_over){
+    print "I win!\n";
+    print <<eof
+        <form method="post" action="">
             <input type="submit" value="Play Again">
-        </div>
-    </form>
-eof
-} else {
-print <<eof;
-    <form method="POST" action="">
-        <div class="padding">
-        <input type="textfield" name="guess">
-        </div>
-        <input type="hidden" name="number_to_guess" value="$number_to_guess">
-    </form>
-eof
+        </form>
+    eof
+}else{
+    $last_guess = get_middle($min,$max);
+    print "My guess is:$last_guess\n";
+    print <<eof
+        <form method="post" action="">
+            <input type=hidden name="last_guess" value="$last_guess">
+            <input type=hidden name="min" value="$min">
+            <input type=hidden name="max" value="$max">
+            <input type="submit" name="higher" value="Higher?">
+            <input type="submit" name="correct" value="Correct?">
+            <input type="submit" name="lower" value="Lower?">
+        </form>
+    eof
 }
 
 print <<eof;
