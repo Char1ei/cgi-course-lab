@@ -17,6 +17,7 @@ Content-Type: text/html
 <html lang="en">
 <head>
     <title>Guess A Number</title>
+    <link rel="stylesheet" type="text/css" href="guess_number.css">
 </head>
 <body>
 eof
@@ -32,28 +33,40 @@ if (defined $number_to_guess and defined $guess) {
     $guess =~ s/\D//g;
     $number_to_guess =~ s/\D//g;
     if ($guess == $number_to_guess) {
+    	print "<div class='right_answer'\n>";
         print "You guessed right, it was $number_to_guess.\n";
+        print "</div>\n";
         $game_over = 1;
     } elsif ($guess < $number_to_guess) {
+    	print "<div class='wrong_answer'\n>";
         print "Its higher than $guess.\n";
     } else {
+    	print "<div class='wrong_answer'\n>";
         print "Its lower than $guess.\n";
+        print "</div>\n";
     }
 } else {
     $number_to_guess = 1 + int(rand $max_number_to_guess);
+    print "<div class='changedisplay'\n>";
     print "I've  thought of number 0..$max_number_to_guess\n";
+    print "</div>\n";
 }
 
+# no var are assignment so it will begin
 if ($game_over) {
 print <<eof;
     <form method="POST" action="">
+        <div class="central_buttom">
         <input type="submit" value="Play Again">
+        </div>
     </form>
 eof
 } else {
 print <<eof;
     <form method="POST" action="">
+    	<div class="textfieldposition">
         <input type="textfield" name="guess">
+        </div>
         <input type="hidden" name="number_to_guess" value="$number_to_guess">
     </form>
 eof

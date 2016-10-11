@@ -78,6 +78,7 @@ sub luhn_checksum{
 
 sub validate{
 	my ($credit_no) = @_;
+	$credit_no =~ s/</&lt;/g; # for avoiding to XSS
 	my $no = $credit_no;
 	$no =~ s/\D//g;
 	if(length $no != 16){
