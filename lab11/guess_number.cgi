@@ -63,10 +63,10 @@ eof
 } else {
 print <<eof;
     <form method="POST" action="">
-        <input type="textfield" name="guess">
         <div class="padding">
-        <input type="hidden" name="number_to_guess" value="$number_to_guess">
+        <input type="textfield" name="guess">
         </div>
+        <input type="hidden" name="number_to_guess" value="$number_to_guess">
     </form>
 eof
 }

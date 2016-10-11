@@ -1,4 +1,6 @@
 body {
+	padding-top: 1em;
+	padding-bottom: 1em;
 	font-family: Monospace;
 	font-size: xx-large;
 	text-align: center;
@@ -15,5 +17,5 @@ body {
 
 .padding{
 	padding-top: 1em;
-    padding-bottom: 1em;
+	padding-bottom: 1em;
 }
