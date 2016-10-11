@@ -40,6 +40,7 @@ if (defined $number_to_guess and defined $guess) {
     } elsif ($guess < $number_to_guess) {
     	print "<div class='wrong_answer'\n>";
         print "Its higher than $guess.\n";
+        print "</div>\n";
     } else {
     	print "<div class='wrong_answer'\n>";
         print "Its lower than $guess.\n";
@@ -47,27 +48,25 @@ if (defined $number_to_guess and defined $guess) {
     }
 } else {
     $number_to_guess = 1 + int(rand $max_number_to_guess);
-    print "<div class='changedisplay'\n>";
     print "I've  thought of number 0..$max_number_to_guess\n";
-    print "</div>\n";
 }
 
 # no var are assignment so it will begin
 if ($game_over) {
 print <<eof;
     <form method="POST" action="">
-        <div class="central_buttom">
-        <input type="submit" value="Play Again">
+        <div class="padding">
+            <input type="submit" value="Play Again">
         </div>
     </form>
 eof
 } else {
 print <<eof;
     <form method="POST" action="">
-    	<div class="textfieldposition">
         <input type="textfield" name="guess">
-        </div>
+        <div class="padding">
         <input type="hidden" name="number_to_guess" value="$number_to_guess">
+        </div>
     </form>
 eof
 }
