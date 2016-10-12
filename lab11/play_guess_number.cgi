@@ -3,13 +3,9 @@
 use CGI qw/:all/;
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
 
-$last_guess;
-$min = 1;
-$max = 100;
-
 sub get_middle{
     my ($min, $max) = @_;
-    return ($max + $min)//2;
+    return int (($max + $min) / 2);
 }
 
 print <<eof;
@@ -41,6 +37,9 @@ if (defined $last_guess) {
     }else{
         $game_over = 1;
     }
+}else{
+    $min = 1;
+    $max = 100;
 }
 if ($game_over){
     print "I win!\n";
@@ -50,7 +49,7 @@ print <<eof;
 </form>
 eof
 }else{
-    $last_guess = get_middle($min,$max);
+    $last_guess = &get_middle($min,$max);
     print "My guess is:$last_guess\n";
     print <<eof;
     <form method="post" action="">
