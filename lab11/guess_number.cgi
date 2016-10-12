@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+./#!/usr/bin/perl -w
 
 use CGI qw/:all/;
 use CGI::Carp qw(fatalsToBrowser warningsToBrowser);
@@ -74,6 +74,4 @@ eof
 print <<eof;
 </body>
 </html>
-
-
 eof
