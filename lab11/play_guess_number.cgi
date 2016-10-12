@@ -38,8 +38,8 @@ if (defined $last_guess) {
         $game_over = 1;
     }
 }else{
-    $min = 1;
-    $max = 100;
+    $min = 0;
+    $max = 101;
 }
 if ($game_over){
     print "I win!\n";
@@ -50,9 +50,9 @@ print <<eof;
 eof
 }else{
     $last_guess = &get_middle($min,$max);
-    print "My guess is:$last_guess\n";
     print <<eof;
     <form method="post" action="">
+	My guess is:$last_guess
         <input type=hidden name="last_guess" value="$last_guess">
         <input type=hidden name="min" value="$min">
         <input type=hidden name="max" value="$max">
